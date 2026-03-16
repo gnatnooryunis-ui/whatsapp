@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>واتساب ويب</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #f0f2f5 0%, #e9edef 100%); /* درجات رمادي واتساب */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 950px;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        header {
+            background: #128C7E;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .main {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .left {
+            flex: 1;
+            padding: 50px 60px;
+            min-width: 320px;
+        }
+
+        .left h1 {
+            font-size: 28px;
+            color: #111;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .steps {
+            list-style: none;
+            counter-reset: step;
+        }
+
+        .steps li {
+            margin-bottom: 22px;
+            display: flex;
+            gap: 15px;
+            font-size: 17px;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .steps li::before {
+            content: counter(step);
+            counter-increment: step;
+            background: #25D366;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .right {
+            flex: 1;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 30px;
+            min-width: 320px;
+            border-left: 1px solid #eee;
+        }
+
+        .qr-box {
+            background: white;
+            padding: 18px;
+            border: 12px solid #25D366;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .qr-box img {
+            width: 260px;
+            height: 260px;
+        }
+
+        .reload {
+            margin-top: 20px;
+            color: #128C7E;
+            font-size: 15px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .reload:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* التصميم المتجاوب */
+        @media (max-width: 768px) {
+            .main {
+                flex-direction: column;
+            }
+            .left, .right {
+                padding: 40px 30px;
+            }
+            .qr-box img {
+                width: 220px;
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- الهيدر -->
+        <header>
+            <div class="logo">WhatsApp</div>
+        </header>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="main">
+            <!-- الجانب الأيسر: التعليمات -->
+            <div class="left">
+                <h1>استخدم واتساب على جهاز الكمبيوتر</h1>
+                <ol class="steps">
+                    <li>افتح واتساب على هاتفك</li>
+                    <li>اضغط على <strong>المزيد من الخيارات</strong> أو <strong>القائمة</strong> → <strong>الأجهزة المرتبطة</strong></li>
+                    <li>اضغط على <strong>ربط جهاز</strong></li>
+                    <li>وجه كاميرا هاتفك نحو هذه الشاشة لمسح رمز الـ QR</li>
+                </ol>
+            </div>
+
+            <!-- الجانب الأيمن: رمز الـ QR -->
+            <div class="right">
+                <div class="qr-box">
+                    <!-- رمز QR حقيقي يتولد تلقائياً -->
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=https://web.whatsapp.com&color=128C7E" 
+                         alt="رمز الـ QR">
+                </div>
+                <a href="#" class="reload">اضغط هنا لإعادة تحميل رمز الـ QR</a>
+            </div>
+        </div>
+
+        <!-- الفوتر -->
+        <footer>
+            تحتاج مساعدة؟ <a href="#" style="color:#25D366;">اتصل بنا</a>
+        </footer>
+    </div>
+
+</body>
+</html>
