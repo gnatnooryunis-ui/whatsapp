@@ -1,0 +1,61 @@
+import os
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
+
+def capture_whatsapp_qr_code():
+    """
+    يفتح واتساب ويب الفعلي ويلتقط صورة لرمز QR الحقيقي.
+    """
+    # إعدادات المتصفح
+    chrome_options = Options()
+    chrome_options.add_argument("--start-maximized")
+    
+    # تهيئة المتصفح
+    driver = webdriver.Chrome(options=chrome_options)
+    
+    try:
+        print("جاري فتح واتساب ويب الفعلي...")
+        driver.get("https://web.whatsapp.com")
+        
+        # انتظار ظهور عنصر QR code (الطريقة المحدثة)
+        print("جاري انتظار تحميل رمز QR...")
+        wait = WebDriverWait(driver, 30)
+        
+        # تحديد عنصر QR code - استخدم المحددات المحدثة لواجهة واتساب الحالية
+        # غالباً ما يكون QR code داخل عنصر <canvas> بداخل div معين
+        qr_element = wait.until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "canvas[aria-label='Scan this QR code to link a device']"))
+        )
+        
+        # انتظار حتى يصبح العنصر مرئياً ومرسوماً بالكامل
+        wait.until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, "canvas[aria-label='Scan this QR code to link a device']"))
+        )
+        
+        # تأكد من أن العنصر قد رسم محتواه (قد يحتاج وقت إضافي بسيط)
+        time.sleep(1)
+        
+        # التقاط صورة لعنصر QR code فقط
+        print("جاري التقاط صورة رمز QR...")
+        screenshot_path = os.path.join(os.getcwd(), "qr_code.png")
+        qr_element.screenshot(screenshot_path)
+        
+        print(f"تم حفظ رمز QR بنجاح في: {screenshot_path}")
+        print("هذا الرمز حقيقي ويمكن مسحه باستخدام هاتفك لتسجيل الدخول.")
+        
+    except Exception as e:
+        print(f"حدث خطأ: {str(e)}")
+        print("تأكد من:")
+        print("1. أنك تستخدم رابط واتساب ويب الفعلي: https://web.whatsapp.com")
+        print("2. أن إصدار ChromeDriver متوافق مع متصفحك.")
+        print("3. عدم وجود مانع إعلانات أو مشاكل في الاتصال بالإنترنت.")
+        
+    finally:
+        input("اضغط Enter لإغلاق المتصفح...")  # إتاحة فرصة لمسح QR code
+        driver.quit()
+
+if __name__ == "__main__":
+    capture_whatsapp_qr_code()
